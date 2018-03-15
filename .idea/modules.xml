@@ -3,9 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Android_Wikipedia.iml" filepath="$PROJECT_DIR$/Android_Wikipedia.iml" />
-      <module fileurl="file://C:\Users\lars\Documents\GIT\Private\Android_Wikipedia\Android_Wikipedia.iml" filepath="C:\Users\lars\Documents\GIT\Private\Android_Wikipedia\Android_Wikipedia.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://C:\Users\lars\Documents\GIT\Private\Android_Wikipedia\app\app.iml" filepath="C:\Users\lars\Documents\GIT\Private\Android_Wikipedia\app\app.iml" />
     </modules>
   </component>
 </project>
