@@ -14,6 +14,8 @@ import android.view.ViewGroup
 import com.example.lars.android_wikipedia.R
 import com.example.lars.android_wikipedia.activities.SearchActivity
 import com.example.lars.android_wikipedia.adapters.ArticleCardRecyclerAdapter
+import com.example.lars.android_wikipedia.models.WikiResult
+import com.example.lars.android_wikipedia.providers.ArticleDataProvider
 import kotlinx.android.synthetic.main.fragment_explore.*
 
 
@@ -22,8 +24,10 @@ import kotlinx.android.synthetic.main.fragment_explore.*
  */
 class ExploreFragment : Fragment() {
 
+    private val articleProvider: ArticleDataProvider = ArticleDataProvider()
     var searchCardView: CardView? = null
     var exploreRecycler: RecyclerView? = null
+    var adapter: ArticleCardRecyclerAdapter = ArticleCardRecyclerAdapter()
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -38,9 +42,17 @@ class ExploreFragment : Fragment() {
         }
 
         exploreRecycler!!.layoutManager = LinearLayoutManager(context)
-        exploreRecycler!!.adapter= ArticleCardRecyclerAdapter()
+        exploreRecycler!!.adapter= adapter
         return view
 
+    }
+
+    private fun getRandomArticles(){
+        articleProvider.getRandom(15,{wikiResult: WikiResult ->
+            adapter.currentResults.clear()
+            adapter.currentResults.addAll(wikiResult.query!!.pages)
+            activity.runOnUiThread{adapter.notifyDataSetChanged()}
+        })
     }
 
 }// Required empty public constructor

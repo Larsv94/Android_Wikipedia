@@ -6,6 +6,8 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.example.lars.android_wikipedia.R
+import com.example.lars.android_wikipedia.models.WikiPage
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.article_card_item.view.*
 import org.w3c.dom.Text
 
@@ -15,4 +17,15 @@ import org.w3c.dom.Text
 class CardHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val articleImageView: ImageView = itemView.findViewById<ImageView>(R.id.article_image)
     private val titleTextView: TextView = itemView.findViewById<TextView>(R.id.article_title)
+
+    private var currentPage:WikiPage?=null
+
+    fun updateWithPage(page: WikiPage){
+        currentPage = page;
+
+        titleTextView.text=page.title
+        if (page.thumbnail!=null){
+            Picasso.with(itemView.context).load(page.thumbnail!!.source).into(articleImageView)
+        }
+    }
 }
