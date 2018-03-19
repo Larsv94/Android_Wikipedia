@@ -4,20 +4,32 @@ import android.app.SearchManager
 import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.SearchView
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.SearchView
+
 import com.example.lars.android_wikipedia.R
-import kotlinx.android.synthetic.main.activity_article_detail.*
+import com.example.lars.android_wikipedia.adapters.ArticleListItemRecyclerAdapter
+import com.example.lars.android_wikipedia.models.WikiResult
+import com.example.lars.android_wikipedia.providers.ArticleDataProvider
+
+import kotlinx.android.synthetic.main.activity_search.*
 
 class SearchActivity : AppCompatActivity() {
 
+    private val articleProvider : ArticleDataProvider = ArticleDataProvider()
+    private var adapter: ArticleListItemRecyclerAdapter = ArticleListItemRecyclerAdapter()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
 
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+
+        search_results_recycler.layoutManager = LinearLayoutManager(this)
+        search_results_recycler.adapter = adapter
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -38,8 +50,12 @@ class SearchActivity : AppCompatActivity() {
         searchView.setIconifiedByDefault(false)
         searchView.requestFocus()
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
-            override fun onQueryTextSubmit(p0: String?): Boolean {
-                println("updated search")
+            override fun onQueryTextSubmit(query: String): Boolean {
+                articleProvider.search(query, 0, 20 ,{result: WikiResult ->
+                    adapter.currentResults.clear()
+                    adapter.currentResults.addAll(result.query!!.pages)
+                    runOnUiThread{adapter.notifyDataSetChanged()}
+                })
                 return false
             }
 

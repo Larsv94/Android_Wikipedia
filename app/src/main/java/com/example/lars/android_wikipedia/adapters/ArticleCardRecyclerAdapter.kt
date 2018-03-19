@@ -5,18 +5,22 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.example.lars.android_wikipedia.R
 import com.example.lars.android_wikipedia.holders.CardHolder
+import com.example.lars.android_wikipedia.models.WikiPage
 
 /**
  * Created by lars on 16-03-2018.
  */
-class ArticleCardRecyclerAdapter() : RecyclerView.Adapter<CardHolder>()
-{
+class ArticleCardRecyclerAdapter() : RecyclerView.Adapter<CardHolder>() {
+
+    val currentResults: ArrayList<WikiPage> = ArrayList<WikiPage>()
     override fun getItemCount(): Int {
-        return 15 //temporary
+        return currentResults.size
     }
 
     override fun onBindViewHolder(holder: CardHolder?, position: Int) {
-        //update view
+        var page =currentResults[position]
+        holder?.updateWithPage(page)
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): CardHolder {
