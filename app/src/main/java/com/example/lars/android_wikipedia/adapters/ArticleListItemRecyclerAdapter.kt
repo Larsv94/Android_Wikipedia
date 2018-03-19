@@ -6,18 +6,21 @@ import android.view.ViewGroup
 import com.example.lars.android_wikipedia.R
 import com.example.lars.android_wikipedia.holders.CardHolder
 import com.example.lars.android_wikipedia.holders.ListItemHolder
+import com.example.lars.android_wikipedia.models.WikiPage
 
 /**
  * Created by lars on 16-03-2018.
  */
 class ArticleListItemRecyclerAdapter() : RecyclerView.Adapter<ListItemHolder>()
 {
+    val currentResults: ArrayList<WikiPage> = ArrayList<WikiPage>()
     override fun onBindViewHolder(holder: ListItemHolder?, position: Int) {
-       //todo
+        var page =currentResults[position]
+        holder?.updateWithPage(page)
     }
 
     override fun getItemCount(): Int {
-        return 15 //temporary
+        return currentResults.size //temporary
     }
 
 
