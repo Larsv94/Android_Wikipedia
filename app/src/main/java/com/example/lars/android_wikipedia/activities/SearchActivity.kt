@@ -5,9 +5,10 @@ import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.SearchView
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.SearchView
+
 import com.example.lars.android_wikipedia.R
 import com.example.lars.android_wikipedia.adapters.ArticleListItemRecyclerAdapter
 import com.example.lars.android_wikipedia.models.WikiResult
